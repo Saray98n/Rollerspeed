@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lista de Clases - Roller Speed</title>
+
+  <!-- Bootstrap y Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #eee;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav.navbar {
+      background: linear-gradient(90deg, #121212, #1f2937);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+      z-index: 1030;
+    }
+
+    nav.navbar .navbar-brand {
+      color: #0ff1ff !important;
+      font-weight: 800;
+      font-size: 1.75rem;
+      text-shadow: 0 0 6px #0ff1ff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    nav.navbar .navbar-brand i {
+      font-size: 1.8rem;
+      transform: rotate(-15deg);
+      filter: drop-shadow(0 0 4px #0ff1ff);
+    }
+
+    .container {
+      max-width: 960px;
+      background: linear-gradient(145deg, #1c2833, #16222a);
+      border-radius: 1rem;
+      box-shadow: 0 6px 15px rgba(0, 255, 255, 0.3);
+      padding: 2rem 2.5rem;
+      color: #b0e0ff;
+      margin: 2rem auto;
+      width: 100%;
+    }
+
+    h2 {
+      font-weight: 800;
+      color: #0ff1ff;
+      text-shadow: 0 0 10px #0ff1ff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    table.table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 0.75rem;
+      background: transparent;
+      color: #b0e0ff;
+    }
+
+    thead th {
+      background: linear-gradient(90deg, #0ff1ff, #415d84);
+      color: #0ff1ff;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      box-shadow: 0 3px 8px rgba(0, 255, 255, 0.4);
+    }
+
+    tbody tr {
+      background: linear-gradient(145deg, #16222a, #1c2833);
+      border-radius: 1rem;
+      box-shadow: 0 3px 10px rgba(0, 255, 255, 0.15);
+      transition: background 0.3s ease, transform 0.2s ease;
+      cursor: default;
+    }
+
+    tbody tr:hover {
+      background: linear-gradient(145deg, #0ff1ff, #00e5ff);
+      color: #121212;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.7);
+    }
+
+    tbody td {
+      padding: 1rem 1rem;
+      vertical-align: middle;
+    }
+
+    footer {
+      background-color: #121212;
+      color: #0ff1ff;
+      padding: 1.5rem 0;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+      text-shadow: 0 0 8px #0ff1ff;
+    }
+
+    footer a {
+      color: #0ff1ff;
+      margin: 0 0.5rem;
+      font-size: 1.25rem;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/}">
+        <i class="bi bi-lightning-charge-fill"></i> Roller Speed
+      </a>
+    </div>
+  </nav>
+
+  <div id="main-wrapper">
+    <div class="container mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <h2><i class="bi bi-list-check"></i> Lista de Clases</h2>
+        <a th:href="@{/clases/nueva}" class="btn btn-success">
+          <i class="bi bi-plus-circle"></i> Nueva Clase
+        </a>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Horario</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="clase : ${clases}">
+            <td th:text="${clase.id}"></td>
+            <td th:text="${clase.nombre}"></td>
+            <td th:text="${clase.descripcion}"></td>
+            <td>
+              <span th:text="${clase.fecha}"></span><br />
+              <span th:text="${clase.horaInicio}"></span> - <span th:text="${clase.horaFin}"></span>
+            </td>
+            <td>
+              <a th:href="@{/clases/editar/{id}(id=${clase.id})}" class="btn btn-warning btn-sm me-1" title="Editar">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <a th:href="@{/clases/eliminar/{id}(id=${clase.id})}"
+                 class="btn btn-danger btn-sm"
+                 onclick="return confirm('¿Estás segura de eliminar esta clase?')"
+                 title="Eliminar">
+                <i class="bi bi-trash3"></i>
+              </a>
+            </td>
+          </tr>
+          <tr th:if="${#lists.isEmpty(clases)}">
+            <td colspan="5" class="text-center fst-italic">No hay clases registradas.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div> <!-- /main-wrapper -->
+
+  <footer>
+    <div>© 2025 Roller Speed - Todos los derechos reservados.</div>
+    <div>
+      <a href="#"><i class="bi bi-facebook"></i></a>
+      <a href="#"><i class="bi bi-instagram"></i></a>
+      <a href="#"><i class="bi bi-twitter"></i></a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

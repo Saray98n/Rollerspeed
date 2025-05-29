@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Misión - Roller Speed</title>
+
+  <!-- Bootstrap, Icons y Montserrat -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: linear-gradient(90deg, #121212, #1f2937);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+      z-index: 1030;
+    }
+
+    .navbar-brand {
+      color: #0ff1ff !important;
+      font-weight: 800;
+      font-size: 1.75rem;
+      text-shadow: 0 0 6px #0ff1ff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .navbar-brand i {
+      font-size: 1.8rem;
+      transform: rotate(-15deg);
+      filter: drop-shadow(0 0 4px #0ff1ff);
+    }
+
+    .navbar-nav .nav-link {
+      color: #b0bec5;
+      transition: color 0.3s ease;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus,
+    .navbar-nav .show > .nav-link {
+      color: #0ff1ff;
+      text-shadow: 0 0 8px #0ff1ff;
+    }
+
+    .dropdown-menu {
+      background-color: #1f2937;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.25);
+    }
+    .dropdown-menu a {
+      color: #a5d8ff;
+      font-weight: 600;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .dropdown-menu a:hover {
+      background-color: #0ff1ff;
+      color: #121212 !important;
+      border-radius: 0.3rem;
+    }
+
+    .container.mt-5 {
+      flex-grow: 1;
+      max-width: 720px;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    h1 {
+      font-weight: 800;
+      color: #0ff1ff;
+      text-shadow: 0 0 10px #0ff1ff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      justify-content: center;
+    }
+
+    .content-box {
+      background: linear-gradient(145deg, #1c2833, #16222a);
+      padding: 2.5rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 6px 15px rgba(0, 255, 255, 0.3);
+      color: #b0e0ff;
+      text-align: center;
+    }
+
+    p.fs-5 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    footer {
+      background-color: #121212;
+      color: #0ff1ff;
+      padding: 1.5rem 0;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+      text-shadow: 0 0 8px #0ff1ff;
+      margin-top: auto;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/}">
+      <i class="bi bi-lightning-charge-fill"></i> Roller Speed
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+          >Corporativo</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" th:href="@{/corporativo/mision}">Misión</a></li>
+            <li><a class="dropdown-item" th:href="@{/corporativo/vision}">Visión</a></li>
+            <li><a class="dropdown-item" th:href="@{/corporativo/valores}">Valores</a></li>
+            <li><a class="dropdown-item" th:href="@{/corporativo/servicios}">Servicios</a></li>
+            <li><a class="dropdown-item" th:href="@{/corporativo/eventos}">Eventos</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <div class="content-box">
+    <h1><i class="bi bi-bullseye"></i> Nuestra Misión</h1>
+    <p class="fs-5">
+      Formar patinadores con disciplina, pasión y excelencia deportiva.
+    </p>
+  </div>
+</div>
+
+<footer>
+  <div>© 2025 Roller Speed - Todos los derechos reservados.</div>
+  <div>
+    <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+    <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+    <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

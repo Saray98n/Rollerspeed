@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lista de Instructores - Roller Speed</title>
+
+  <!-- Bootstrap, Bootstrap Icons y Montserrat -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: linear-gradient(90deg, #121212, #1f2937);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+      z-index: 1030;
+    }
+
+    .navbar-brand {
+      color: #0ff1ff !important;
+      font-weight: 800;
+      font-size: 1.75rem;
+      text-shadow: 0 0 6px #0ff1ff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h2 {
+      font-weight: 800;
+      color: #0ff1ff;
+      text-shadow: 0 0 8px #0ff1ff;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #1c2833, #16222a);
+      border-radius: 1rem;
+      border: none;
+      box-shadow: 0 6px 15px rgba(0, 255, 255, 0.3);
+      color: #cceeff;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .table {
+      color: #eee;
+    }
+
+    .table th, .table td {
+      vertical-align: middle;
+      color: #56a1d3;
+    }
+
+    .table thead {
+      background-color: #0ff1ff;
+      color: #0061ff;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: rgba(0, 255, 255, 0.05);
+    }
+
+    .btn-success {
+      background: linear-gradient(45deg, #00f2ff, #0061ff);
+      border: none;
+      box-shadow: 0 4px 15px rgba(0, 97, 255, 0.7);
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(45deg, #0061ff, #00f2ff);
+      box-shadow: 0 6px 25px rgba(0, 255, 255, 0.9);
+    }
+
+    .btn-warning {
+      background: #ffc107;
+      border: none;
+      color: #121212;
+    }
+
+    .btn-warning:hover {
+      background: #ffcd39;
+    }
+
+    .btn-danger {
+      background: #dc3545;
+      border: none;
+    }
+
+    .btn-danger:hover {
+      background: #ff4757;
+    }
+
+    .btn i {
+      vertical-align: middle;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    footer {
+      background-color: #121212;
+      color: #0ff1ff;
+      padding: 1.5rem 0;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+      text-shadow: 0 0 8px #0ff1ff;
+      margin-top: auto;
+    }
+    footer a {
+      color: #00e5ff;
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #fff;
+      text-shadow: 0 0 6px #00e5ff;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/}">
+      <i class="bi bi-lightning-charge-fill"></i> Roller Speed
+    </a>
+  </div>
+</nav>
+
+<!-- Contenido -->
+<div class="container mb-5">
+  <div class="card p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2><i class="bi bi-people-fill me-2"></i>Lista de Instructores</h2>
+      <a th:href="@{/instructores/nuevo}" class="btn btn-success">
+        <i class="bi bi-plus-circle me-1"></i> Nuevo Instructor
+      </a>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle text-center">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Especialidad</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="instructor : ${instructores}">
+            <td th:text="${instructor.id}"></td>
+            <td th:text="${instructor.nombre}"></td>
+            <td th:text="${instructor.especialidad}"></td>
+            <td th:text="${instructor.correo}"></td>
+            <td>
+              <a th:href="@{/instructores/editar/{id}(id=${instructor.id})}" class="btn btn-warning btn-sm me-1" title="Editar">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <a th:href="@{/instructores/eliminar/{id}(id=${instructor.id})}" class="btn btn-danger btn-sm"
+                 onclick="return confirm('¿Estás segura de eliminar este instructor?')" title="Eliminar">
+                <i class="bi bi-trash3"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>© 2025 Roller Speed - Todos los derechos reservados.</div>
+  <div>
+    <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+    <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+    <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

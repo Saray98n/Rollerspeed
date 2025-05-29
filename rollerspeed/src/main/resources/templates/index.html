@@ -1,75 +1,310 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Roller Speed - Inicio</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Roller Speed</title>
 
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #f8f9fa;
-        }
-        .navbar {
-            background: linear-gradient(90deg, #2b5876, #4e4376);
-        }
-        h1 {
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-        .card {
-            border: none;
-            border-radius: 1rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            background: white;
-        }
-        footer {
-            background-color: #2b5876;
-            color: white;
-            padding: 20px;
-            margin-top: 40px;
-            text-align: center;
-        }
-    </style>
-    
+  <!-- Bootstrap y Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Fuente base y fondo */
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar con degradado y sombra */
+    .navbar {
+      background: linear-gradient(90deg, #121212, #1f2937);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+      z-index: 1030;
+    }
+
+    .navbar-brand {
+      color: #0ff1ff !important;
+      font-weight: 800;
+      font-size: 1.75rem;
+      text-shadow: 0 0 6px #0ff1ff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .navbar-brand i {
+      font-size: 1.8rem;
+      transform: rotate(-15deg);
+      filter: drop-shadow(0 0 4px #0ff1ff);
+    }
+
+    /* Navbar links */
+    .navbar-nav .nav-link {
+      color: #b0bec5;
+      transition: color 0.3s ease;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus,
+    .navbar-nav .show > .nav-link {
+      color: #0ff1ff;
+      text-shadow: 0 0 8px #0ff1ff;
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      background-color: #1f2937;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.25);
+    }
+    .dropdown-menu a {
+      color: #a5d8ff;
+      font-weight: 600;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .dropdown-menu a:hover {
+      background-color: #0ff1ff;
+      color: #121212 !important;
+      border-radius: 0.3rem;
+    }
+
+    /* Carousel con sombra y borde redondeado */
+    #carouselExample {
+      max-width: 700px;
+      margin: 0 auto;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 255, 255, 0.4);
+      overflow: hidden;
+      background: #121212;
+    }
+    #carouselExample img {
+      filter: drop-shadow(0 0 4px #0ff1ff);
+      max-height: 180px !important;
+      object-fit: contain;
+    }
+
+    /* Contenedor principal */
+    .container.mt-5 {
+      flex-grow: 1;
+      max-width: 960px;
+    }
+
+    /* Titular */
+    h1 {
+      font-weight: 800;
+      color: #0ff1ff;
+      text-align: center;
+      text-shadow: 0 0 10px #0ff1ff;
+      margin-bottom: 2rem;
+    }
+
+    /* Cards con estilo futurista */
+    .card {
+      background: linear-gradient(145deg, #1c2833, #16222a);
+      border-radius: 1rem;
+      border: none;
+      box-shadow: 0 6px 15px rgba(0, 255, 255, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+      color: #b0e0ff;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 255, 255, 0.7);
+      color: #00fff7;
+    }
+    .card .card-body {
+      padding: 2rem 1.5rem;
+    }
+    .card .bi {
+      font-size: 4rem;
+      filter: drop-shadow(0 0 6px #0ff1ff);
+    }
+    .card-title {
+      margin-top: 1rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    .card-text {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #a0cbe8;
+    }
+
+    /* Footer oscuro */
+    footer {
+      background-color: #121212;
+      color: #0ff1ff;
+      padding: 1.5rem 0;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+      text-shadow: 0 0 8px #0ff1ff;
+      margin-top: auto;
+    }
+    footer a {
+      color: #00e5ff;
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #fff;
+      text-shadow: 0 0 6px #00e5ff;
+    }
+
+    /* Animación de entrada */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .container.mt-5 {
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    /* Botones */
+    .btn-primary {
+      background: linear-gradient(45deg, #00f2ff, #0061ff);
+      border: none;
+      box-shadow: 0 4px 15px rgba(0, 97, 255, 0.7);
+      transition: background 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(45deg, #0061ff, #00f2ff);
+      box-shadow: 0 6px 25px rgba(0, 255, 255, 0.9);
+    }
+  </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" th:href="@{/}"><i class="bi bi-speedometer2"></i> Roller Speed</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <a class="navbar-brand" th:href="@{/}">
+      <i class="bi bi-lightning-charge-fill"></i> Roller Speed
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" 
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" th:href="@{/mision}">Misión</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/vision}">Visión</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/valores}">Valores</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/servicios}">Servicios</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/eventos}">Eventos</a></li>
+
+        <!-- Corporativo -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+            <i class="bi bi-buildings"></i> Corporativo
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" th:href="@{/corporativo/mision}">Misión</a></li>
+            <li><a class="dropdown-item" th:href="@{/corporativo/vision}">Visión</a></li>
+            <li><a class="dropdown-item" th:href="@{/corporativo/valores}">Valores</a></li>
+            <li><a class="dropdown-item" th:href="@{/corporativo/servicios}">Servicios</a></li>
+            <li><a class="dropdown-item" th:href="@{/corporativo/eventos}">Eventos</a></li>
+          </ul>
+        </li>
+
+        <!-- Registro -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+            <i class="bi bi-person-plus"></i> Registro
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" th:href="@{/aspirantes/nuevo}">Inscripción de Estudiantes</a></li>
+            <li><a class="dropdown-item" th:href="@{/instructores/nuevo}">Inscripción de Instructor</a></li>
+            <li><a class="dropdown-item" th:href="@{/clases}">Clases</a></li>
+          </ul>
+        </li>
+
+        <!-- Estudiantes -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+            <i class="bi bi-people"></i> Estudiantes
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" th:href="@{/aspirantes}">Listar Estudiantes</a></li>
+            <li><a class="dropdown-item" th:href="@{/instructores}">Listar Instructores</a></li>
+          </ul>
+        </li>
+
+        <!-- Horarios -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+            <i class="bi bi-calendar-week"></i> Horarios
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" th:href="@{/horarios/estudiantes}">Horario Estudiantes</a></li>
+            <li><a class="dropdown-item" th:href="@{/horarios/instructores}">Horario Instructores</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<div class="container text-center mt-5">
-    <h1 class="display-4 mb-4 text-primary">Bienvenid@ a la Escuela de Patinaje Roller Speed</h1>
-    <p class="lead">Formamos campeones sobre ruedas con pasión, disciplina y velocidad.</p>
-    <img src="data:image/jpeg;base64,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" 
-         class="img-fluid rounded shadow mt-4" alt="Patinaje">
+<!-- CONTENIDO PRINCIPAL -->
+<div class="container mt-5">
+  <h1>Bienvenidos a Roller Speed</h1>
+
+  <!-- Cards destacadas -->
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card text-center p-3">
+        <i class="bi bi-lightning-charge-fill"></i>
+        <div class="card-body">
+          <h5 class="card-title">Velocidad y Precisión</h5>
+          <p class="card-text">Clases diseñadas para mejorar tu velocidad y técnica en patinaje.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-center p-3">
+        <i class="bi bi-people-fill"></i>
+        <div class="card-body">
+          <h5 class="card-title">Instructores Expertos</h5>
+          <p class="card-text">Profesionales capacitados para guiar tu progreso y seguridad.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-center p-3">
+        <i class="bi bi-calendar-event"></i>
+        <div class="card-body">
+          <h5 class="card-title">Eventos y Competencias</h5>
+          <p class="card-text">Participa en nuestros eventos para poner a prueba tus habilidades.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<footer class="bg-dark text-white text-center py-3 mt-5">
-    &copy; 2025 Escuela de Patinaje Roller Speed
+<!-- FOOTER -->
+<footer class="mt-5">
+  <div>© 2025 Roller Speed - Todos los derechos reservados.</div>
+  <div>
+    <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+    <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+    <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+  </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
-
-
