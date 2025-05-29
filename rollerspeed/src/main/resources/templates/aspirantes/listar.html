@@ -204,20 +204,22 @@
             <td th:text="${aspirante.nombre}"></td>
             <td th:text="${aspirante.correo}"></td>
             <td th:text="${aspirante.telefono}"></td>
-            <td>
-              <a th:href="@{/aspirantes/editar/{id}(id=${aspirante.id})}" 
-                 class="btn btn-warning btn-sm me-1" title="Editar">
-                <i class="bi bi-pencil-square"></i>
-              </a>
-              <a th:href="@{/aspirantes/eliminar/{id}(id=${aspirante.id})}" 
-                 class="btn btn-danger btn-sm"
-                 onclick="return confirm('¿Estás segura de eliminar este estudiante?')" 
-                 title="Eliminar">
-                <i class="bi bi-trash-fill"></i>
-              </a>
-            </td>
-          </tr>
-        </tbody>
+            <td class="d-flex">
+         <a th:href="@{/aspirantes/editar/{id}(id=${aspirante.id})}" 
+         class="btn btn-warning btn-sm me-2" title="Editar">
+        <i class="bi bi-pencil-square"></i>
+         </a>
+
+        <form th:action="@{/aspirantes/eliminar/{id}(id=${aspirante.id})}" method="post"
+            onsubmit="return confirm('¿Estás segura de eliminar este estudiante?');">
+        <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
+          <i class="bi bi-trash-fill"></i>
+        </button>
+        </form>
+        </td>
+        </tr>
+      </tbody>
+
       </table>
     </div>
   </div>
