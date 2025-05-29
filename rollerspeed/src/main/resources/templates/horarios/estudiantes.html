@@ -141,17 +141,31 @@
           <th>Aspirante</th>
         </tr>
       </thead>
+      </thead>
       <tbody>
-        <tr th:each="clase : ${clases}">
-          <td th:text="${clase.nombre}"></td>
-          <td th:text="${clase.descripcion}"></td>
-          <td th:text="${clase.fecha}"></td>
-          <td th:text="${clase.horaInicio}"></td>
-          <td th:text="${clase.horaFin}"></td>
-          <td th:text="${clase.instructor.nombre}"></td>
-          <td th:text="${clase.aspirante.nombre}"></td>
-        </tr>
-      </tbody>
+  <tr th:each="clase : ${clases}">
+    <td th:text="${clase.nombre}"></td>
+    <td th:text="${clase.descripcion}"></td>
+    <td th:text="${clase.fecha}"></td>
+    <td th:text="${clase.horaInicio}"></td>
+    <td th:text="${clase.horaFin}"></td>
+    <td th:text="${clase.instructor.nombre}"></td>
+    <td>
+      <ul class="mb-0 ps-3">
+        <li th:each="aspirante : ${clase.aspirantes}"
+            th:text="${aspirante.nombre}"></li>
+      </ul>
+    </td>
+    <td>
+      <ul class="mb-0 ps-3">
+        <li th:each="estudiante : ${clase.estudiantes}"
+            th:text="${estudiante.nombre}"></li>
+      </ul>
+    </td>
+  </tr>
+</tbody>
+
+
     </table>
   </div>
 </div>
